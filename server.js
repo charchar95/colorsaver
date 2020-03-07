@@ -7,47 +7,15 @@ const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
 const bcrypt = require('bcrypt');
-// const hashedString = bcrypt.hashSync('itstuesdaylemon', bcrypt.genSaltSync(10));
-
-
-
+const hashedString = bcrypt.hashSync('itstuesdaylemon', bcrypt.genSaltSync(10));
+const session = require('express-session');
 
 // =======================================
 //              PORT
 // =======================================
 // Allow use of Heroku's port or your own local port, depending on the environment
 const PORT = process.env.PORT || 3000;
-
-// =======================================
-//              DATABASE   
-// ======================================= 
-// How to connect to the database either via heroku or locally
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/'+ "colorsaver";
-
-// Mongo //
-mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true}, 
-    // { useUnifiedTopology: true }
-    );
-
-const User = require('./models/users.js')    
-
-
-// Mongo - Error / success //
-db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
-db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
-db.on('disconnected', () => console.log('mongo disconnected'));
-
-// open the connection to mongo
-db.on('open' , ()=>{});
-
-
-const session = require('express-session');
-const userController = require('./controllers/users.js')
-const sessionsController = require('./controllers/sessions.js')
-
-
-app.use('/users', userController)
-app.use('/sessions', sessionsController)
+const mongoURI = process.env.MONGO_URI
 
 
 // =======================================
@@ -73,16 +41,45 @@ app.use(
   })
 );
 
+// =======================================
+//              DATABASE   
+// ======================================= 
+// How to connect to the database either via heroku or locally
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/'+ "colorsaver";
+
+// Mongo //
+mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
+
+const User = require('./models/users.js')    
+
+
+// Mongo - Error / success //
+db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
+db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
+db.on('disconnected', () => console.log('mongo disconnected'));
+
+// open the connection to mongo
+db.on('open' , ()=>{});
+
+
+
+const userController = require('./controllers/users.js')
+const sessionsController = require('./controllers/sessions.js')
+
+app.use('/users', userController)
+app.use('/sessions', sessionsController)
+
+
+
 
 
 
 // =======================================
 //              ROUTES
 // ======================================= 
-//localhost:3000 
 app.get('/' , (req, res) => {
   res.render('index.ejs', {
-    currentUser: req.session.currentUser,
+    currentUser: req.session.currentUser
   }) 
 });
 
@@ -92,7 +89,7 @@ app.get('/app', (req, res)=>{
   } else {
       res.redirect('/sessions/new');
   }
-})
+});
 
 // SEED //
 app.get("/seed", (req, res) =>{
