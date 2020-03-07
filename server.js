@@ -6,6 +6,13 @@ const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
+const bcrypt = require('bcrypt');
+// const hashedString = bcrypt.hashSync('itstuesdaylemon', bcrypt.genSaltSync(10));
+const session = require('express-session');
+const userController = require('./controllers/users.js')
+const sessionsController = require('./controllers/sessions.js')
+
+
 
 // =======================================
 //              PORT
@@ -47,13 +54,39 @@ app.use(express.json());// returns middleware that only parses JSON - may or may
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 
+app.use(
+  session({
+    secret: "itstuesdaylemon", //some random string
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+
+app.use('/users', userController)
+app.use('/sessions', sessionsController)
+
+
 // =======================================
 //              ROUTES
 // ======================================= 
 //localhost:3000 
 app.get('/' , (req, res) => {
-  res.send('Hello World!');
+  res.render('index.ejs', {
+    currentUser: req.session.currentUser
+   }) 
 });
+
+app.get('/app', (req, res)=>{
+  if(req.session.currentUser){
+      res.render('app/index.ejs')
+  } else {
+      res.redirect('/sessions/new');
+  }
+})
+
+
+
 
 // =======================================
 //              LISTENER
