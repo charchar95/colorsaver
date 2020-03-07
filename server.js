@@ -8,9 +8,7 @@ const app = express ();
 const db = mongoose.connection;
 const bcrypt = require('bcrypt');
 // const hashedString = bcrypt.hashSync('itstuesdaylemon', bcrypt.genSaltSync(10));
-const session = require('express-session');
-const userController = require('./controllers/users.js')
-const sessionsController = require('./controllers/sessions.js')
+
 
 
 
@@ -31,6 +29,9 @@ mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true},
     // { useUnifiedTopology: true }
     );
 
+const User = require('./models/users.js')    
+
+
 // Mongo - Error / success //
 db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
 db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
@@ -38,6 +39,16 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 
 // open the connection to mongo
 db.on('open' , ()=>{});
+
+
+const session = require('express-session');
+const userController = require('./controllers/users.js')
+const sessionsController = require('./controllers/sessions.js')
+
+
+app.use('/users', userController)
+app.use('/sessions', sessionsController)
+
 
 // =======================================
 //              MIDDLEWARE
@@ -63,8 +74,6 @@ app.use(
 );
 
 
-app.use('/users', userController)
-app.use('/sessions', sessionsController)
 
 
 // =======================================
@@ -73,8 +82,8 @@ app.use('/sessions', sessionsController)
 //localhost:3000 
 app.get('/' , (req, res) => {
   res.render('index.ejs', {
-    currentUser: req.session.currentUser
-   }) 
+    currentUser: req.session.currentUser,
+  }) 
 });
 
 app.get('/app', (req, res)=>{
@@ -85,7 +94,19 @@ app.get('/app', (req, res)=>{
   }
 })
 
-
+// SEED //
+app.get("/seed", (req, res) =>{
+  User.create([
+    {
+      username: 'charchar',
+      password: '1234'
+    }
+  ], 
+  (err, data)=>{
+    console.log(data);
+    res.redirect('/');
+  })
+});
 
 
 // =======================================
