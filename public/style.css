@@ -1,0 +1,24 @@
+#logout {
+    float: left
+}
+* {
+    background-color:green ;
+}
+
+.navbar{
+    background-color:green;
+}
+
+.color-id {
+    height: 90px;
+    width: 90px;
+    border-radius: 35px;
+    border: 2px black solid;
+}
+
+.container {
+    display: flex;
+    margin:0 15% 0 15%; 
+    flex-direction: column;
+    justify-content: space-around;
+  }

@@ -45,13 +45,13 @@ app.use(
 //              DATABASE   
 // ======================================= 
 // How to connect to the database either via heroku or locally
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/'+ "colorsaver";
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:' + `27017/colorsaver`;
 
 // Mongo //
 mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
 
 const User = require('./models/users.js')    
-
+const Color = require('./models/colors.js')   
 
 // Mongo - Error / success //
 db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
@@ -65,12 +65,11 @@ db.on('open' , ()=>{});
 
 const userController = require('./controllers/users.js')
 const sessionsController = require('./controllers/sessions.js')
+// const colorController = require('./controllers/colors.js');
 
 app.use('/users', userController)
 app.use('/sessions', sessionsController)
-
-
-
+// app.use('/colors', colorController);
 
 
 
@@ -78,31 +77,84 @@ app.use('/sessions', sessionsController)
 //              ROUTES
 // ======================================= 
 app.get('/' , (req, res) => {
-  res.render('index.ejs', {
-    currentUser: req.session.currentUser
+  // res.render('index.ejs', {
+    Color.find({}, (err, foundColors)=>{
+      res.render('index.ejs', {
+        color: foundColors,
+        currentUser: req.session.currentUser,
   }) 
+})
 });
 
-app.get('/app', (req, res)=>{
-  if(req.session.currentUser){
-      res.render('app/index.ejs')
+// NEW //
+app.get('/new', (req, res) => {
+  if (req.session.currentUser) {
+    res.render('new.ejs', {currentUser: req.session.currentUser});
   } else {
-      res.redirect('/sessions/new');
+    res.redirect("sessions/new")
   }
 });
 
-// SEED //
-app.get("/seed", (req, res) =>{
-  User.create([
-    {
-      username: 'charchar',
-      password: '1234'
-    }
-  ], 
-  (err, data)=>{
-    console.log(data);
-    res.redirect('/');
-  })
+//EDIT //
+app.get('/:id/edit', (req, res) => {
+  if(req.session.currentUser){
+      res.render('/views/colors/edit.ejs', {
+          id: req.params.id, 
+          currentUser: req.session.currentUser
+      });
+  } else {
+      res.redirect("/");
+  };
+});
+
+// UPDATE //
+app.put("/:id", (req, res) => {
+  // console.log(req.body);
+  if (req.session.currentUser) {
+      req.body.username = req.session.currentUser.username;
+      Color.findByIdAndUpdate(
+        req.params.id, 
+        req.body, 
+        (err, foundColor) => {
+        res.redirect('/');
+      });
+  }
+});
+
+
+
+// CREATE //
+app.post('/', (req, res) => {
+  console.log(req.body);
+  req.body.username = req.session.currentUser.username;
+  Color.create(req.body, (err, result) => {
+      // console.log(result);
+      res.redirect('/');
+  });
+});
+
+// DELETE //
+app.delete('/:id', (req, res) => {
+  if(req.session.currentUser) {
+      Color.findByIdAndRemove(req.params.id, (err, updatedColor) => {
+          res.redirect('/');
+      });
+  } else {
+      res.redirect('/');
+  };
+});
+
+// SHOW //
+app.get('/:id', (req, res) => {
+  if(req.session.currentUser){
+      Color.findById(req.params.id, (error, foundColor) => {
+          res.render('show.ejs', {
+            color: foundColor, 
+            });
+      });
+  } else {
+      res.redirect('/');
+  };
 });
 
 

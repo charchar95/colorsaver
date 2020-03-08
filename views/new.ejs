@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include ('./partials/head.ejs') %>
+</head>
+<title>New Color</title>
+    <body>
+        <a href="/">Back</a>
+        <div class="row">
+            <form class="col s12" action="/" method="POST">
+            <div class="row">
+                <div class="input-field col s6">
+                <input placeholder="name" id="name" type="name" name="name" required>
+                <label for="name">name</label>
+                </div>
+            </div>
+            <div class="row">
+                <input placeholder="RGB or Hex" id="value" type="value" name="value" required>
+                <label for="value">Value</label>
+                </div>
+            </div>
+            <button type="submit" name="action">Submit
+            </button>
+            </form>
+    </body>
+</html>
