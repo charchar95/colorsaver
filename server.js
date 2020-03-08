@@ -45,7 +45,7 @@ app.use(
 //              DATABASE   
 // ======================================= 
 // How to connect to the database either via heroku or locally
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:' + `27017/colorsaver`;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/' + `colorsaver`;
 
 // Mongo //
 mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
@@ -65,11 +65,11 @@ db.on('open' , ()=>{});
 
 const userController = require('./controllers/users.js')
 const sessionsController = require('./controllers/sessions.js')
-// const colorController = require('./controllers/colors.js');
+const colorController = require('./controllers/colors.js');
 
 app.use('/users', userController)
 app.use('/sessions', sessionsController)
-// app.use('/colors', colorController);
+app.use('/colors', colorController);
 
 
 
@@ -86,76 +86,84 @@ app.get('/' , (req, res) => {
 })
 });
 
+// router.get('/' , (req, res) => {
+//   // res.render('index.ejs', {
+//     Color.find({}, (err, foundColors)=>{
+//       res.render('index.ejs', {
+//         color: foundColors,
+//         currentUser: req.session.currentUser,
+//   }) 
+// })
+// });
+
 // NEW //
 app.get('/new', (req, res) => {
-  if (req.session.currentUser) {
-    res.render('new.ejs', {currentUser: req.session.currentUser});
-  } else {
-    res.redirect("sessions/new")
-  }
+if (req.session.currentUser) {
+  res.render('new.ejs', {currentUser: req.session.currentUser});
+} else {
+  res.redirect("sessions/new")
+}
 });
 
 //EDIT //
 app.get('/:id/edit', (req, res) => {
-  if(req.session.currentUser){
-      res.render('/views/colors/edit.ejs', {
-          id: req.params.id, 
-          currentUser: req.session.currentUser
-      });
-  } else {
-      res.redirect("/");
-  };
+if(req.session.currentUser){
+  res.render('edit.ejs', {
+      id: req.params.id, 
+      currentUser: req.session.currentUser
+  });
+} else {
+  res.redirect("/");
+};
 });
+
+// SHOW //
+app.get('/:id/show', (req, res) => {
+  const foundColor = Color.findById(req.params.id)
+  res.render('show.ejs', {
+  color: foundColor,
+  currentUser: req.session.currentUser, 
+  // id: req.params.id 
+  }); 
+}); 
 
 // UPDATE //
 app.put("/:id", (req, res) => {
-  // console.log(req.body);
-  if (req.session.currentUser) {
-      req.body.username = req.session.currentUser.username;
-      Color.findByIdAndUpdate(
-        req.params.id, 
-        req.body, 
-        (err, foundColor) => {
-        res.redirect('/');
-      });
-  }
+// console.log(req.body);
+if (req.session.currentUser) {
+  req.body.username = req.session.currentUser.username;
+  Color.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      (err, foundColor) => {
+      res.redirect('/');
+  });
+}
 });
 
 
 
 // CREATE //
 app.post('/', (req, res) => {
-  console.log(req.body);
-  req.body.username = req.session.currentUser.username;
-  Color.create(req.body, (err, result) => {
-      // console.log(result);
-      res.redirect('/');
-  });
+console.log(req.body);
+req.body.username = req.session.currentUser.username;
+Color.create(req.body, (err, result) => {
+  // console.log(result);
+  res.redirect('/');
+});
 });
 
 // DELETE //
 app.delete('/:id', (req, res) => {
-  if(req.session.currentUser) {
-      Color.findByIdAndRemove(req.params.id, (err, updatedColor) => {
-          res.redirect('/');
-      });
-  } else {
+if(req.session.currentUser) {
+  Color.findByIdAndRemove(req.params.id, (err, updatedColor) => {
       res.redirect('/');
-  };
+  });
+} else {
+  res.redirect('/');
+};
 });
 
-// SHOW //
-app.get('/:id', (req, res) => {
-  if(req.session.currentUser){
-      Color.findById(req.params.id, (error, foundColor) => {
-          res.render('show.ejs', {
-            color: foundColor, 
-            });
-      });
-  } else {
-      res.redirect('/');
-  };
-});
 
 
 // =======================================

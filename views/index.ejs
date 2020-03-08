@@ -17,7 +17,7 @@
                         <div class="flex-grid">
                         <% for (i= 0; i < color.length; i++) { %>
                             <div class="item">
-                            <a  href="/:<%= color[i]._id%>"> <%=color[i].name%> </a>
+                            <a  href="/:<%= color[i].id%>/show"> <%=color[i].name%> </a>
                                     <div class="color-id" style="background: <%= color[i].value%>;">
                                 </div>
                                 <% } %>
