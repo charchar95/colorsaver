@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <%- include ('./partials/head.ejs') %>
+  
   <title>Show Page</title>
 </head>
 <body>
-
+    <% if (currentUser) { %>
     <div class="show" style="background: <%=color.value%>;"></div>
   <h1> <%=color.name %></h1>
   <a href="<%=color.id%>/edit">Edit</a>
@@ -14,7 +15,7 @@
     <input type="submit" value="DELETE">
     </form>
 </div> 
-
+   <% } %>
  <a href="/">Back</a>
 </body>
 

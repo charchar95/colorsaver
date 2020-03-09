@@ -118,13 +118,14 @@ if(req.session.currentUser){
 });
 
 // SHOW //
-app.get('/:id/show', (req, res) => {
-  const foundColor = Color.findById(req.params.id)
+app.get('/:id/', (req, res) => {
+  Color.findById( req.params.id, (err, foundColor) => {
   res.render('show.ejs', {
   color: foundColor,
   currentUser: req.session.currentUser, 
-  // id: req.params.id 
-  }); 
+  id: req.params.id,
+  });  console.log(err)
+})
 }); 
 
 // UPDATE //
