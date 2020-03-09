@@ -130,15 +130,12 @@ app.get('/:id/', (req, res) => {
 // UPDATE //
 app.put("/:id", (req, res) => {
 // console.log(req.body);
-if (req.session.currentUser) {
-  req.body.username = req.session.currentUser.username;
   Color.findByIdAndUpdate(
       req.params.id, 
       req.body, 
       (err, foundColor) => {
       res.redirect('/');
   });
-}
 });
 
 
