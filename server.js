@@ -107,14 +107,13 @@ if (req.session.currentUser) {
 
 //EDIT //
 app.get('/:id/edit', (req, res) => {
-if(req.session.currentUser){
-  res.render('edit.ejs', {
-      id: req.params.id, 
-      currentUser: req.session.currentUser
+  Color.findById( req.params.id, (err, foundColor) => {
+    res.render('edit.ejs', {
+    color: foundColor,
+    currentUser: req.session.currentUser, 
+    id: req.params.id,
   });
-} else {
-  res.redirect("/");
-};
+});
 });
 
 // SHOW //
@@ -124,7 +123,7 @@ app.get('/:id/', (req, res) => {
   color: foundColor,
   currentUser: req.session.currentUser, 
   id: req.params.id,
-  });  console.log(err)
+  });  
 })
 }); 
 

@@ -12,12 +12,12 @@
         <form class="col s12" action="/color/<%=color.id%>?_method=PUT" method="POST">
             <div class="row">
                 <div class="input-field col s6">
-                <input placeholder="name" id="name" type="name" name="name" value='<&=color.name%>'>
+                <input placeholder="name" id="name" type="name" name="name" value='<%=color.name%>'>
                 <label for="name">name</label>
                 </div>
             </div>
             <div class="row">
-                <input placeholder="RGB or Hex" id="value" type="value" name="value" value='<&=color.value%>'>
+                <input placeholder="RGB or Hex" id="value" type="value" name="value" value=<%=color.value%>>
                 <label for="value">Value</label>
                 </div>
             </div>
