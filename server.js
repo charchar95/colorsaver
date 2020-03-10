@@ -65,11 +65,11 @@ db.on('open' , ()=>{});
 
 const userController = require('./controllers/users.js')
 const sessionsController = require('./controllers/sessions.js')
-const colorController = require('./controllers/colors.js');
+const colorController = require('./controllers/color.js')
 
 app.use('/users', userController)
 app.use('/sessions', sessionsController)
-app.use('/colors', colorController);
+app.use('colors', colorController)
 
 
 
@@ -85,82 +85,6 @@ app.get('/' , (req, res) => {
   }) 
 })
 });
-
-// router.get('/' , (req, res) => {
-//   // res.render('index.ejs', {
-//     Color.find({}, (err, foundColors)=>{
-//       res.render('index.ejs', {
-//         color: foundColors,
-//         currentUser: req.session.currentUser,
-//   }) 
-// })
-// });
-
-// NEW //
-app.get('/new', (req, res) => {
-if (req.session.currentUser) {
-  res.render('new.ejs', {currentUser: req.session.currentUser});
-} else {
-  res.redirect("sessions/new")
-}
-});
-
-//EDIT //
-app.get('/:id/edit', (req, res) => {
-  Color.findById( req.params.id, (err, foundColor) => {
-    res.render('edit.ejs', {
-    color: foundColor,
-    currentUser: req.session.currentUser, 
-    id: req.params.id,
-  });
-});
-});
-
-// SHOW //
-app.get('/:id/', (req, res) => {
-  Color.findById( req.params.id, (err, foundColor) => {
-  res.render('show.ejs', {
-  color: foundColor,
-  currentUser: req.session.currentUser, 
-  id: req.params.id,
-  });  
-})
-}); 
-
-// UPDATE //
-app.put("/:id", (req, res) => {
-// console.log(req.body);
-  Color.findByIdAndUpdate(
-      req.params.id, 
-      req.body, 
-      (err, foundColor) => {
-      res.redirect('/');
-  });
-});
-
-
-
-// CREATE //
-app.post('/', (req, res) => {
-console.log(req.body);
-req.body.username = req.session.currentUser.username;
-Color.create(req.body, (err, result) => {
-  // console.log(result);
-  res.redirect('/');
-});
-});
-
-// DELETE //
-app.delete('/:id', (req, res) => {
-if(req.session.currentUser) {
-  Color.findByIdAndRemove(req.params.id, (err, updatedColor) => {
-      res.redirect('/');
-  });
-} else {
-  res.redirect('/');
-};
-});
-
 
 
 // =======================================

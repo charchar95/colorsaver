@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include ('./partials/head.ejs') %>
 </head>
 <title>Edit Color</title>
     <body>
         <a href="/">Back</a>
         <div class="row">
-        <form class="col s12" action="/<%=color.id%>?_method=PUT" method="POST">
-            <div class="row">
+        <form class="form-inline" action="/<%=color.id%>?_method=PUT" method="POST">
+            <div class="form-group">
                 <div class="input-field col s6">
                 <input placeholder="name" id="name" type="name" name="name" value='<%=color.name%>'>
-                <label for="name">name</label>
+                <label for="name"></label>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-group">
                 <input placeholder="RGB or Hex" id="value" type="value" name="value" value=<%=color.value%>>
-                <label for="value">Value</label>
+                <label for="value"></label>
                 </div>
             </div>
-            <button type="submit" name="action">Submit
+            <button class="btn btn-default"type="submit" name="action">Submit
             </button>
         </form>
     </body>

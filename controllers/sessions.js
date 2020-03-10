@@ -31,7 +31,7 @@ User.findOne({ username: req.body.username.toLowerCase() }, (err, foundUser) => 
         req.session.currentUser = foundUser;
         res.redirect('/');
     } else {
-        res.send('<a href="/">wrong password</a>');
+        res.send('<a href="/sessions/new">wrong password</a>');
     }
 })
 })
