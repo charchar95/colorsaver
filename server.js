@@ -32,6 +32,7 @@ app.use(express.json());// returns middleware that only parses JSON - may or may
 //use method override
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
+app.use('/public', express.static('public'));
 
 app.use(
   session({
@@ -69,7 +70,7 @@ const colorController = require('./controllers/color.js')
 
 app.use('/users', userController)
 app.use('/sessions', sessionsController)
-app.use('colors', colorController)
+app.use('/colors', colorController)
 
 
 
