@@ -125,7 +125,7 @@ Color.findByIdAndUpdate(
   req.params.id, 
   req.body, 
   (err, foundColor) => {
-  res.redirect('/:id');
+  res.redirect('/');
   });
 });
 
