@@ -8,19 +8,17 @@
      <%- include ('./partials/nav.ejs') %>
        <title>Index</title>
 </head>
-<body>        
+<body>   
 <% if (currentUser) { %>
-    <a href="/new"> Add New Color</a> 
-    <div class=""></div>
+<div class="body-container">   
     <% if (color.length > 0) { %>
                 <div class="flex-grid">
                 <% for (i= 0; i < color.length; i++) { %>
-                    <div class="item">
+                    <div class="name">
+                    <div class="color-id" style="background: <%= color[i].value%>;"></div> <br>
                     <a  href="/<%= color[i].id%>/"> <%=color[i].name%> </a>
-                            <div class="color-id" style="background: <%= color[i].value%>;">
-                        </div>
-                        <% } %>
-                    </div>
+                   </div>
+                    <% } %>
                 </div>
                 <% } else { %>
                 <div class="zero-colors">
@@ -29,5 +27,6 @@
                 <% } %>
             <% } %>
     </div>
+</div>  
 </body>
 </html>

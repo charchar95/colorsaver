@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <%- include ('./partials/head.ejs') %>
+    <%- include ('./partials/head.ejs') %> 
+    <%- include ('./partials/nav.ejs') %>
 </head>
 <title>Edit Color</title>
     <body>
         <a href="/">Back</a>
+        <div class="new-page">
         <div class="row">
         <form class="form-inline" action="/<%=color.id%>?_method=PUT" method="POST">
             <div class="form-group">
@@ -25,5 +27,6 @@
             <button class="btn btn-default"type="submit" name="action">Submit
             </button>
         </form>
+    </div>
     </body>
 </html>

@@ -2,21 +2,27 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <%- include ('./partials/head.ejs') %>
+  <%- include ('./partials/head.ejs') %> 
+  <%- include ('./partials/nav.ejs') %>
   
   <title>Show Page</title>
 </head>  <% if (currentUser) { %>
-<body style="background: <%=color.value%>;">
-  
-    <div class="show" ></div>
-  <h1> <%=color.name %></h1>
+<body>
+  <div class="show-page">
+    <div class="show-id"style="background: <%=color.value%>;" ></div>
+    <div class="actions">
+    <h1> <%=color.name %></h1>
+    <h2><%=color.value%></h2>
   <a href="/<%=color.id%>/edit/">Edit</a>
   <form action="/<%=color.id%>/?_method=DELETE" method="POST">
     <input type="submit" value="DELETE">
     </form>
-</div> 
+
+
    <% } %>
  <a href="/">Back</a>
+   </div> 
+  </div>
 </body>
 
 </html>

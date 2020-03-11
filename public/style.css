@@ -1,25 +1,107 @@
-/* 
- *{
-    border: 1px solid green;
-} */
+.navbar{
+    background-color:rgb(81, 61, 124, .8);
+    color:rgb(205,206,207);
+    font: arial;
+    /* display: flex; */
+    /* justify-content: space-evenly; */
+} 
 
-/* .navbar{
-    background-color:green;
-}  */
+.navbar > a {
+    color:rgb(205,206,207);
+}
 
+
+.show-id {
+    height: 180px;
+    width: 180px;
+    border-radius: 25px;
+    border: 2px black solid;
+    padding: 25px;
+}
+
+
+.show-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body-container {
+    margin-left: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
  .color-id {
     height: 90px;
     width: 90px;
     border-radius: 25px;
     border: 2px black solid;
+    padding: 25px;
+    margin: 15px 15px 0px 15px;
+}
+.name > a{
+    color: black
 }
 
-
-/* .container {
+.flex-grid {
     display: flex;
-    margin:0 15% 0 15%; 
-    flex-direction: column;
-    justify-content: space-around;
-  } */
+    flex-wrap: wrap;
+    text-align: center;
 
-  .
+  }
+
+.item{
+ height: 120px; 
+ min-width: 120px;
+ border: 1px solid black;
+}
+
+.show-page {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.new-page, .edit-page {
+    margin: 25% 25% 30% 25%
+}
+
+  @-webkit-keyframes wiggle
+  {
+      0% {-webkit-transform: rotateZ(2deg);}
+      50% {-webkit-transform: rotateZ(-2deg);}
+      100% {-webkit-transform: rotateZ(2deg);}
+  }
+  @-moz-keyframes wiggle
+  {
+      0% {-moz-transform: rotateZ(2deg);}
+      50% {-moz-transform: rotateZ(-2deg);}
+      100% {-moz-transform: rotateZ(2deg);}
+  }
+  @-o-keyframes wiggle
+  {
+      0% {-o-transform: rotateZ(2deg);}
+      50% {-o-transform: rotateZ(-2deg);}
+      100% {-o-transform: rotateZ(2deg);}
+  }
+  @keyframes wiggle
+  {
+      0% {transform: rotateZ(2deg);}
+      50% {transform: rotateZ(-2deg);}
+      100% {transform: rotateZ(2deg);}
+  }
+  
+  .color-id:hover {
+      -webkit-animation: wiggle 0.2s ease-out ;
+      -moz-animation: wiggle 0.2s ease-out ;
+      -o-animation: wiggle 0.2s ease-out ;
+      animation: wiggle 0.2s ease-out ;
+      cursor: pointer;
+  } 

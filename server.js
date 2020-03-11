@@ -125,7 +125,7 @@ Color.findByIdAndUpdate(
   req.params.id, 
   req.body, 
   (err, foundColor) => {
-  res.redirect('/');
+  res.redirect('/:id');
   });
 });
 
@@ -143,12 +143,13 @@ Color.create(req.body, (err, result) => {
 
 // DELETE //
 app.delete('/:id', (req, res) => {
-  if(req.session.currentUser) {
+  req.body.username = req.session.currentUser.username;
+  if( req.session.currentUser.username === Color.username) {
   Color.findByIdAndRemove(req.params.id, (err, updatedColor) => {
   res.redirect('/');
     });
 } else {
-  res.redirect('/');
+  res.send('<a href="/">You cannot delete a color that you did not create</a>')
   };
 });
 
