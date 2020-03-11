@@ -1,12 +1,14 @@
 .navbar{
-    background-color:rgb(81, 61, 124, .8);
+    background-color:rgb(52, 115, 48, .8);
     color:rgb(205,206,207);
     font: arial;
-    /* display: flex; */
-    /* justify-content: space-evenly; */
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+
 } 
 
-.navbar > a {
+.navbar > a{
     color:rgb(205,206,207);
 }
 
@@ -70,7 +72,15 @@
 }
 
 .new-page, .edit-page {
-    margin: 25% 25% 30% 25%
+    margin: 15% 25% 30% 25%
+}
+
+.login {
+    font: arial;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
   @-webkit-keyframes wiggle
