@@ -70,6 +70,9 @@
     flex-wrap: wrap;
     text-align: center;
 }
+
+
+
  .color-id {
     height: 90px;
     width: 90px;
@@ -78,9 +81,7 @@
     padding: 25px;
     margin: 15px 15px 0px 15px;
 }
-.name > a{
-    color: black
-}
+
 
 .flex-grid {
     display: flex;
@@ -98,13 +99,12 @@
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
-    /* justify-content:  flex-start; */
     justify-content: center;
   
 }
 
 
-.login > h3, a {
+.login > h3, a  {
     color: rgb(139,81,51);
     font-size: 25px; 
      font-weight: 600;
@@ -119,6 +119,12 @@ hr {
     border-style: inset;
     border-width: 7px;
   } 
+
+  .name > a{
+    color: black;
+    font-size: 15px
+}
+
 
   @-webkit-keyframes wiggle
   {
