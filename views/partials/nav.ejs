@@ -1,19 +1,25 @@
 
 <div class="navbar">
 <% if (currentUser) { %>
-    Welcome <%=currentUser.username%>!
+    <h2>Color Saver</h2>
     <a href="/new">Add a New Color</a>
    
     <form action="/sessions?_method=DELETE" method="POST">
         <input type="submit" value="Logout"/>
     </form>
-   
     <% } else { %>
-    <div class="login">
-    <h3>Please </br>
-    <a  href="/users/new">Sign Up</a>
-    or
-    <a  href="/sessions/new">Log In</a>
-    <% } %></h3>
 </div> 
+<div class="title-page">
+    <h1>Color Saver</h1> 
 </div>
+<hr>
+    <div class="login">
+  <h3><a  href="/users/new"> Sign Up </a> </h3>
+    </div>
+   <div class="center"><h3>or</h3></div>
+<div class="login">
+    <h3> <a href="/sessions/new">Log In</a></h3> 
+ <% } %>
+</div>
+
+ 

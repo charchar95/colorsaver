@@ -49,7 +49,7 @@ app.use(
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/' + `colorsaver`;
 
 // Mongo //
-mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const User = require('./models/users.js')    
 const Color = require('./models/colors.js')   
@@ -97,7 +97,7 @@ app.get('/new', (req, res) => {
 });
 
 //EDIT //
-app.get('/:id/edit', (req, res) => {
+app.get('/:id/', (req, res) => {
 Color.findById( req.params.id, (err, foundColor) => {
   res.render('edit.ejs', {
   color: foundColor,
@@ -108,14 +108,14 @@ Color.findById( req.params.id, (err, foundColor) => {
 });
 
 // SHOW //
-app.get('/:id/', (req, res) => {
+app.get('/:id/show', (req, res) => {
   Color.findById( req.params.id, (err, foundColor) => {
     res.render('show.ejs', {
     color: foundColor,
     currentUser: req.session.currentUser, 
     id: req.params.id,
       });  
-    })
+    });
 }); 
 
 // UPDATE //
@@ -143,14 +143,9 @@ Color.create(req.body, (err, result) => {
 
 // DELETE //
 app.delete('/:id', (req, res) => {
-  req.body.username = req.session.currentUser.username;
-  if( req.session.currentUser.username === Color.username) {
   Color.findByIdAndRemove(req.params.id, (err, updatedColor) => {
   res.redirect('/');
-    });
-} else {
-  res.send('<a href="/">You cannot delete a color that you did not create</a>')
-  };
+   });
 });
 
 
@@ -158,3 +153,5 @@ app.delete('/:id', (req, res) => {
 //              LISTENER
 // =======================================
 app.listen(PORT, () => console.log( 'Listening on port:', PORT))
+
+

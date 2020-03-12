@@ -1,4 +1,7 @@
 /* NAV */
+*{
+    font-family: 'Fira Sans', sans-serif;
+}
 .navbar{
     background-color:rgb(52, 115, 48, .8);
     color:rgb(245,245,245);
@@ -6,11 +9,16 @@
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
-
 } 
 
 .navbar > a{
     color:rgb(245,245,245)
+}
+
+.title-page, .zero-colors {
+    display: flex;
+    justify-content: center;
+    margin-top: 7%
 }
 
 /* SHOW PAGE */
@@ -34,6 +42,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* EDIT */
+.edit-id {
+    height: 180px;
+    width: 180px;
+    border-radius: 25px;
+    border: 2px black solid;
+    padding: 25px;
+    margin-top: 45px;
+}
+
+.edit-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 25% 25% 15% 25%;
+    
 }
 
 /* INDEX  */
@@ -66,13 +93,32 @@
     margin: 15% 25% 30% 25%
 }
 
-.login {
+.login, .center {
     font: arial;
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content:  flex-start; */
+    justify-content: center;
+  
 }
+
+
+.login > h3, a {
+    color: rgb(139,81,51);
+    font-size: 25px; 
+     font-weight: 600;
+}
+
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 7px;
+  } 
 
   @-webkit-keyframes wiggle
   {
@@ -99,7 +145,7 @@
       100% {transform: rotateZ(2deg);}
   }
   
-  .color-id:hover {
+  .name:hover {
       -webkit-animation: wiggle 0.2s ease-out ;
       -moz-animation: wiggle 0.2s ease-out ;
       -o-animation: wiggle 0.2s ease-out ;
