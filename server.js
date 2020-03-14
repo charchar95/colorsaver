@@ -85,8 +85,6 @@ app.get('/' , (req, res) => {
 })
 });
 
- 
-
 // NEW //
 app.get('/new', (req, res) => {
   if (req.session.currentUser) {
@@ -147,7 +145,6 @@ app.delete('/:id', (req, res) => {
   res.redirect('/');
    });
 });
-
 
 // =======================================
 //              LISTENER

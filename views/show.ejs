@@ -5,18 +5,19 @@
   <%- include ('./partials/head.ejs') %> 
   <%- include ('./partials/nav.ejs') %>
   
-  <title>Show Page</title>
+<title>Show Page</title>
 </head>  <% if (currentUser) { %>
 <body>
   <div class="show-page">
       <h1> <%=color.name %></h1>
-    <div class="show-id" style="background: <%=color.value%>;" ></div>
-    <div class="actions">
+    <div class="show-id" style="background: <%=color.value%>;">
+    </div>
+    <div class="actions"> 
+    </div>
     <h2><%=color.value%></h2>
   <form action="/<%=color.id%>/?_method=DELETE" method="POST">
     <input type="submit" value="DELETE">
     </form>
- <% } %>
 <a href="/<%=color.id%>/">Edit</a>
    <% } %>
  <a href="/">Back</a>
