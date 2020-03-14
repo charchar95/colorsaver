@@ -12,14 +12,12 @@
       <h1> <%=color.name %></h1>
     <div class="show-id" style="background: <%=color.value%>;" ></div>
     <div class="actions">
-  
     <h2><%=color.value%></h2>
-  <a href="/<%=color.id%>/">Edit</a>
   <form action="/<%=color.id%>/?_method=DELETE" method="POST">
     <input type="submit" value="DELETE">
     </form>
-
-
+ <% } %>
+<a href="/<%=color.id%>/">Edit</a>
    <% } %>
  <a href="/">Back</a>
    </div> 
